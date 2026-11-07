@@ -1,4 +1,4 @@
-const CACHE_NAME = 'politics-tracker-v2.0';
+const CACHE_NAME = 'politics-tracker-v2.1';
 
 // List all static files needed for offline functionality
 const ASSETS_TO_CACHE = [
