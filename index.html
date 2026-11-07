@@ -34,10 +34,10 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: var(--bg); color: var(--text); padding: 20px; max-width: 1050px; margin: 0 auto; transition: background 0.3s, color 0.3s; }
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     h1 { font-size: 1.5rem; font-weight: 700; }
     .controls { display: flex; gap: 8px; flex-wrap: wrap; }
-    button, select { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: background 0.2s; }
+    button, select { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: background 0.2s, border-color 0.2s; }
     button:hover, select:hover { border-color: var(--accent); }
     
     .overall-progress { background: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 8px; margin-bottom: 24px; }
@@ -80,9 +80,12 @@
     </div>
     <div class="controls">
       <button id="themeToggle">🌓 Theme</button>
-      <button id="exportBtn">📥 Export Data</button>
-      <button id="importBtn">📤 Import Data</button>
+      <button id="exportBtn">📥 Export JSON</button>
+      <button id="importBtn">📤 Import JSON</button>
+      <button id="templateCsvBtn">📥 Download CSV Template</button>
+      <button id="importCsvBtn">📊 Import Questions (CSV)</button>
       <input type="file" id="importFile" class="hidden" accept=".json">
+      <input type="file" id="csvFileInput" class="hidden" accept=".csv">
     </div>
   </header>
 
@@ -118,6 +121,7 @@
   <main id="appContainer"></main>
 
   <script>
+    // --- 1. DATA SPECIFICATION ARCHITECTURE ---
     const SPEC_DATA = {
       papers: [
         {
@@ -534,6 +538,7 @@
       ]
     };
 
+    // --- 2. APP STATE MANAGEMENT ---
     let appState = {
       p3Route: "3a",
       nonCore: "feminism",
@@ -557,6 +562,109 @@
       updateProgress();
     }
 
+    // --- 3. CSV UTILITY & COMPREHENSIVE MODULE MAPPING ---
+    function parseCSVLine(text) {
+      const result = [];
+      let cur = '';
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i];
+        if (c === '"') {
+          if (inQuotes && text[i + 1] === '"') {
+            cur += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (c === ',' && !inQuotes) {
+          result.push(cur.trim());
+          cur = '';
+        } else {
+          cur += c;
+        }
+      }
+      result.push(cur.trim());
+      return result;
+    }
+
+    function importQuestionsFromCSV(csvText) {
+      const lines = csvText.split(/\r?\n/).filter(line => line.trim().length > 0);
+      if (lines.length < 2) return 0;
+
+      let addedCount = 0;
+      for (let i = 1; i < lines.length; i++) {
+        const cols = parseCSVLine(lines[i]);
+        if (cols.length < 4) continue;
+
+        const year = cols[0];
+        const paperStr = cols[1] || '';
+        const type = cols[2];
+        const prompt = cols[3];
+        const mainModule = cols[4] || '';
+
+        if (!prompt) continue;
+
+        let matchedTopicId = null;
+        const modLower = mainModule.toLowerCase();
+        const paperLower = paperStr.toLowerCase();
+
+        // Paper 3A (US Politics) Mapping
+        if (modLower.includes('congress')) matchedTopicId = 'p3a_t2';
+        else if (modLower.includes('potus') || modLower.includes('presidency')) matchedTopicId = 'p3a_t3';
+        else if (modLower.includes('dem') || modLower.includes('part') || modLower.includes('elections')) matchedTopicId = 'p3a_t5';
+        else if (modLower.includes('scotus') || modLower.includes('supreme') || modLower.includes('rights')) matchedTopicId = 'p3a_t4';
+        else if (modLower.includes('constitution') || modLower.includes('federalism')) matchedTopicId = 'p3a_t1';
+
+        // Paper 1 (UK Politics & Core Ideologies) Mapping
+        else if (paperLower.includes('uk politics')) {
+          if (modLower.includes('democracy') || modLower.includes('participation')) matchedTopicId = 'p1_m1_t1';
+          else if (modLower.includes('parties') || modLower.includes('party')) matchedTopicId = 'p1_m1_t2';
+          else if (modLower.includes('electoral') || modLower.includes('voting system')) matchedTopicId = 'p1_m1_t3';
+          else if (modLower.includes('media') || modLower.includes('voting behaviour')) matchedTopicId = 'p1_m1_t4';
+        }
+        else if (paperLower.includes('core ideologies')) {
+          if (modLower.includes('conservatism') || prompt.toLowerCase().includes('conservatism')) matchedTopicId = 'p1_m2_t1';
+          else if (modLower.includes('liberalism') || prompt.toLowerCase().includes('liberalism')) matchedTopicId = 'p1_m2_t2';
+          else if (modLower.includes('socialism') || prompt.toLowerCase().includes('socialism')) matchedTopicId = 'p1_m2_t3';
+        }
+
+        // Paper 2 (UK Government & Non-Core Ideologies) Mapping
+        else if (paperLower.includes('uk government')) {
+          if (modLower.includes('constitution') || modLower.includes('devolution')) matchedTopicId = 'p2_m1_t1';
+          else if (modLower.includes('parliament') || modLower.includes('commons') || modLower.includes('lords')) matchedTopicId = 'p2_m1_t2';
+          else if (modLower.includes('executive') || modLower.includes('prime minister') || modLower.includes('cabinet')) matchedTopicId = 'p2_m1_t3';
+          else if (modLower.includes('judiciary') || modLower.includes('branches') || modLower.includes('supreme court')) matchedTopicId = 'p2_m1_t4';
+        }
+        else if (paperLower.includes('feminism') || modLower.includes('feminism')) matchedTopicId = 'p2_m2_fem';
+        else if (paperLower.includes('anarchism') || modLower.includes('anarchism')) matchedTopicId = 'p2_m2_ana';
+        else if (paperLower.includes('ecologism') || modLower.includes('ecologism')) matchedTopicId = 'p2_m2_eco';
+        else if (paperLower.includes('multiculturalism') || modLower.includes('multiculturalism')) matchedTopicId = 'p2_m2_mul';
+        else if (paperLower.includes('nationalism') || modLower.includes('nationalism')) matchedTopicId = 'p2_m2_nat';
+
+        if (matchedTopicId) {
+          SPEC_DATA.papers.forEach(p => {
+            p.modules.forEach(m => {
+              m.topics.forEach(t => {
+                if (t.id === matchedTopicId) {
+                  if (!t.questions) t.questions = [];
+                  const exists = t.questions.some(q => q.prompt === prompt);
+                  if (!exists) {
+                    t.questions.push({ year, type, prompt });
+                    addedCount++;
+                  }
+                }
+              });
+            });
+          });
+        }
+      }
+
+      saveState();
+      render();
+      return addedCount;
+    }
+
+    // --- 4. UI RENDERING & PROGRESS ---
     function render() {
       const container = document.getElementById("appContainer");
       container.innerHTML = "";
@@ -672,6 +780,7 @@
       document.getElementById("overallBar").style.width = `${pct}%`;
     }
 
+    // --- 5. EVENT LISTENERS & HANDLERS ---
     document.getElementById("p3RouteSelect").addEventListener("change", (e) => {
       appState.p3Route = e.target.value;
       saveState();
@@ -720,12 +829,56 @@
       reader.readAsText(file);
     });
 
+    document.getElementById("templateCsvBtn")?.addEventListener("click", () => {
+      const csvHeaders = ["Year", "Paper", "Type", "Question", "Main Module"];
+      const exampleRows = [
+        ["2026", "US Politics", "Essay", "Evaluate the view that increasing partisanship has made political parties more effective in Congress.", "Congress"],
+        ["2026", "US Politics", "Essay", "Evaluate the view that the US presidency is imperial.", "POTUS"],
+        ["2026", "Feminism", "Essay", "To what extent is feminism divided in its views on society?", "Feminism"],
+        ["2026", "UK Politics", "Essay", "Evaluate the view, using examples, that greater use of direct democracy in the UK would strengthen representative democracy.", "Democracy"],
+        ["2025", "UK Government", "Essay", "Evaluate the view that Prime Ministers now have too much power.", "Executive"]
+      ];
+
+      const formatCell = (val) => `"${String(val).replace(/"/g, '""')}"`;
+      const csvContent = [
+        csvHeaders.map(formatCell).join(","),
+        ...exampleRows.map(row => row.map(formatCell).join(","))
+      ].join("\n");
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const dlAnchor = document.createElement("a");
+      dlAnchor.setAttribute("href", url);
+      dlAnchor.setAttribute("download", "past_questions_template.csv");
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      document.body.removeChild(dlAnchor);
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("importCsvBtn")?.addEventListener("click", () => {
+      document.getElementById("csvFileInput")?.click();
+    });
+
+    document.getElementById("csvFileInput")?.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const count = importQuestionsFromCSV(evt.target.result);
+        alert(`Successfully imported ${count} new past paper questions!`);
+      };
+      reader.readAsText(file);
+    });
+
+    // --- 6. SERVICE WORKER REGISTRATION ---
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW reg error:', err));
       });
     }
 
+    // --- INITIALIZE APP ---
     loadState();
     render();
   </script>
