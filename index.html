@@ -60,8 +60,9 @@
     .status-2 { color: var(--status-2); }
     .status-3 { color: var(--status-3); }
 
-    .bullet-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dotted var(--border); gap: 12px; font-size: 0.875rem; }
-    .bullet-text { flex-grow: 1; color: var(--text); }
+    .bullet-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px dotted var(--border); gap: 12px; font-size: 0.875rem; }
+    .bullet-symbol { font-size: 1.1rem; color: var(--accent); line-height: 1.2; padding-right: 4px; }
+    .bullet-text { flex-grow: 1; color: var(--text); line-height: 1.4; display: flex; gap: 8px; }
     
     .drawer-toggle { background: transparent; border: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; text-decoration: underline; padding: 4px 0; margin-top: 6px; display: inline-block; }
     .drawer-content { display: none; margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 12px; }
@@ -126,7 +127,7 @@
   <main id="appContainer"></main>
 
   <script>
-    // --- 1. SPECIFICATION DATA ARCHITECTURE WITH GRANULAR BULLETS ---
+    // --- 1. COMPLETE EDEXCEL A-LEVEL POLITICS (9PL0) SPECIFICATION DATA ---
     const SPEC_DATA = {
       papers: [
         {
@@ -135,16 +136,15 @@
           modules: [
             {
               id: "p1_m1",
-              title: "Module 1: UK Politics",
+              title: "1. Democracy and participation",
               subsections: [
                 {
                   id: "1.1",
-                  name: "1.1 Democracy and Participation",
+                  name: "1.1 Current systems of representative democracy and direct democracy.",
                   bullets: [
-                    { id: "1.1.1", text: "Direct and representative democracy: features of both and differences between them; advantages and disadvantages of both." },
-                    { id: "1.1.2", text: "A wider franchise and debates over suffrage: milestone acts in extending the right to vote; work of suffragettes/suffragists; debates on lowering voting age." },
-                    { id: "1.1.3", text: "Pressure groups and other influences: how pressure groups exert influence; factors determining success/failure; role of think tanks, lobbyists, and corporations." },
-                    { id: "1.1.4", text: "Rights in context: development of rights culture; Human Rights Act 1998, Equality Act 2010; conflict between individual and collective rights." }
+                    { id: "1.1.1", text: "The features of direct democracy and representative democracy." },
+                    { id: "1.1.2", text: "The similarities and differences between direct democracy and representative democracy." },
+                    { id: "1.1.3", text: "Advantages and disadvantages of direct democracy and representative democracy and consideration of the case for reform." }
                   ],
                   thinkers: [],
                   questions: [
@@ -154,94 +154,184 @@
                 },
                 {
                   id: "1.2",
-                  name: "1.2 Political Parties",
+                  name: "1.2 A wider franchise and debates over suffrage.",
                   bullets: [
-                    { id: "1.2.1", text: "Functions of political parties and party funding: main functions; sources of party funding and debates surrounding state funding reform." },
-                    { id: "1.2.2", text: "Political parties: ideas and policies of Conservative, Labour, and Liberal Democrat parties; internal factions and policy developments." },
-                    { id: "1.2.3", text: "Emerging and minor UK political parties: policies and impact of minor parties (e.g. SNP, Green Party, Reform UK/UKIP)." },
-                    { id: "1.2.4", text: "Party systems: two-party system vs multi-party systems in the UK and devolved administrations." }
+                    { id: "1.2.1", text: "Key milestones in the widening of the franchise in relation to class, gender, ethnicity and age, including the 1832 Great Reform Act and the 1918, 1928 and 1969 Representation of the People Acts." },
+                    { id: "1.2.2", text: "The work of the suffragists/suffragettes to extend the franchise." },
+                    { id: "1.2.3", text: "The work of a current movement to extend the franchise." }
                   ],
                   thinkers: [],
-                  questions: [
-                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the dominance of the Labour and Conservative parties has now ended." },
-                    { year: "2025", type: "Essay", prompt: "Evaluate the view that the Labour Party is more internally divided than the Conservative Party." }
-                  ]
+                  questions: []
                 },
                 {
                   id: "1.3",
-                  name: "1.3 Electoral Systems",
+                  name: "1.3 Pressure groups and other influences.",
                   bullets: [
-                    { id: "1.3.1", text: "First Past the Post (FPTP): mechanics, outcomes, advantages, and disadvantages for UK General Elections." },
-                    { id: "1.3.2", text: "Alternative electoral systems: Additional Member System (AMS), Single Transferable Vote (STV), Supplementary Vote (SV) - mechanics, outcomes, pros and cons." },
-                    { id: "1.3.3", text: "Referendums and their impact: how and why referendums are used in the UK since 1997; impact on representative democracy and parliamentary sovereignty." },
-                    { id: "1.3.4", text: "Electoral system reform debates: arguments for and against replacing FPTP for UK General Elections." }
+                    { id: "1.3.1", text: "How different pressure groups exert influence and how their methods and influence vary in contemporary politics." },
+                    { id: "1.3.2", text: "Case studies of two different pressure groups, highlighting examples of how their methods and influence vary." },
+                    { id: "1.3.3", text: "Other collective organisations and groups including think tanks, lobbyists and corporations, and their influence on government and Parliament." }
                   ],
                   thinkers: [],
                   questions: [
-                    { year: "2026", type: "Essay", prompt: "Evaluate the view, by comparing to either the Additional Member System or the Single Transferable Vote, that first-past-the-post should be replaced for General Elections." },
-                    { year: "2024", type: "Source", prompt: "Using the source, evaluate the view that referendums since 1997 have not solved key political issues." }
+                    { year: "2025", type: "Source", prompt: "Using the source, evaluate the view that the most important factor in deciding the influence of pressure groups is the methods they use." }
                   ]
                 },
                 {
                   id: "1.4",
-                  name: "1.4 Voting Behaviour and the Media",
+                  name: "1.4 Rights in context.",
                   bullets: [
-                    { id: "1.4.1", text: "Case studies of three key general elections: comparative analysis of 1979, 1997, and 2017/2019 general elections (outcomes, campaigns, significance)." },
-                    { id: "1.4.2", text: "Factors influencing voting behaviour: long-term social alignment (class, age, ethnicity, region, gender) vs short-term valency/issue voting." },
-                    { id: "1.4.3", text: "Influence of the media: role of newspapers, broadcast media, social media, and opinion polls in shaping electoral outcomes." }
+                    { id: "1.4.1", text: "Major milestones in their development, including the significance of Magna Carta and more recent developments, including the Human Rights Act 1998 and Equality Act 2010." },
+                    { id: "1.4.2", text: "Debates on the extent, limits and tensions within the UK’s rights-based culture, including consideration of how individual and collective right may conflict, the contributions from civil liberties pressure groups – including the work of two contemporary civil liberties pressure groups." }
                   ],
                   thinkers: [],
                   questions: [
-                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that class and region remain the most important factors in influencing how people vote." },
-                    { year: "2025", type: "Essay", prompt: "Evaluate the view, with reference to at least three general elections, that social class and region have very little impact on voting behaviour." }
+                    { year: "2025", type: "Source", prompt: "Using the source, evaluate the view that rights in the UK are poorly protected." }
                   ]
                 }
               ]
             },
             {
               id: "p1_m2",
-              title: "Module 2: Core Political Ideas",
+              title: "2. Political parties",
               subsections: [
                 {
                   id: "2.1",
-                  name: "2.1 Conservatism",
+                  name: "2.1 Political parties.",
                   bullets: [
-                    { id: "2.1.1", text: "Core ideas: human imperfection, organic society, tradition, pragmatism, paternalism, hierarchy, property." },
-                    { id: "2.1.2", text: "Strands: Traditional Conservatism, One Nation Conservatism, Neo-Liberal and Neo-Conservative New Right." },
-                    { id: "2.1.3", text: "Tensions within conservatism: key agreements and disagreements across core strands and thinker perspectives." }
+                    { id: "2.1.1", text: "The functions and features of political parties in the UK’s representative democracy." },
+                    { id: "2.1.2", text: "How parties are currently funded and debates on the consequences of the current funding system." }
                   ],
-                  thinkers: ["Thomas Hobbes", "Edmund Burke", "Michael Oakeshott", "Ayn Rand", "Robert Nozick"],
+                  thinkers: [],
                   questions: [
-                    { year: "2026", type: "Essay", prompt: "To what extent does conservatism support paternalism?" },
-                    { year: "2024", type: "Essay", prompt: "To what extent is there more agreement than disagreement within conservatism?" }
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that the current funding of political parties in the UK requires urgent reform." }
                   ]
                 },
                 {
                   id: "2.2",
-                  name: "2.2 Liberalism",
+                  name: "2.2 Established political parties.",
                   bullets: [
-                    { id: "2.2.1", text: "Core ideas: individualism, freedom/liberty, reason, justice, toleration, constitutionalism, foundational equality." },
-                    { id: "2.2.2", text: "Strands: Classical Liberalism vs Modern Liberalism." },
-                    { id: "2.2.3", text: "Tensions within liberalism: negative vs positive freedom, state intervention, economic management, social welfare." }
+                    { id: "2.2.1", text: "The origins and historical development of the Conservative Party, the Labour Party and Liberal Democrat Party, and how this has shaped their ideas and current policies on the economy, law and order, welfare and foreign affairs." }
                   ],
-                  thinkers: ["John Locke", "Mary Wollstonecraft", "John Stuart Mill", "John Rawls", "Betty Friedan"],
+                  thinkers: [],
                   questions: [
-                    { year: "2025", type: "Essay", prompt: "To what extent is liberalism united in its ideas about democracy?" },
-                    { year: "2024", type: "Essay", prompt: "To what extent is liberalism divided over its approach to the economy?" }
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that the Labour Party is more internally divided than the Conservative Party." }
                   ]
                 },
                 {
                   id: "2.3",
-                  name: "2.3 Socialism",
+                  name: "2.3 Emerging and minor UK political parties.",
                   bullets: [
-                    { id: "2.3.1", text: "Core ideas: collectivism, common humanity, equality, social class, common ownership, fraternity." },
-                    { id: "2.3.2", text: "Strands: Revolutionary Socialism, Democratic Socialism, Social Democracy, Third Way." },
-                    { id: "2.3.3", text: "Tensions within socialism: revolutionary vs evolutionary change, state ownership, role of capitalism." }
+                    { id: "2.3.1", text: "The importance of other parties in the UK." },
+                    { id: "2.3.2", text: "The ideas and policies of two other minor parties." }
+                  ],
+                  thinkers: [],
+                  questions: []
+                },
+                {
+                  id: "2.4",
+                  name: "2.4 UK political parties in context.",
+                  bullets: [
+                    { id: "2.4.1", text: "The development of a multi-party system and its implications for government." },
+                    { id: "2.4.2", text: "Various factors that affect party success – explanations of why political parties have succeeded or failed, including debates on the influence of leadership and the media." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the dominance of the Labour and Conservative parties has now ended." }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "p1_m3",
+              title: "3. Electoral systems",
+              subsections: [
+                {
+                  id: "3.1",
+                  name: "3.1 Electoral systems.",
+                  bullets: [
+                    { id: "3.1.1", text: "First-past-the-post (FPTP), Additional Member System (AMS), Single Transferable Vote (STV) and Supplementary Vote (SV)." },
+                    { id: "3.1.2", text: "The advantages and disadvantages of these systems." },
+                    { id: "3.1.3", text: "The impact of the choice of electoral system on voting behaviour, party representation and electoral outcomes." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view, by comparing to either the Additional Member System or the Single Transferable Vote, that first-past-the-post should be replaced for General Elections." }
+                  ]
+                },
+                {
+                  id: "3.2",
+                  name: "3.2 Referendums and their impact.",
+                  bullets: [
+                    { id: "3.2.1", text: "How and why referendums are used in the UK since 1997." },
+                    { id: "3.2.2", text: "The impact of referendums on representative democracy and parliamentary sovereignty." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2024", type: "Source", prompt: "Using the source, evaluate the view that referendums since 1997 have not solved key political issues." }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "p1_m4",
+              title: "4. Voting behaviour and the media",
+              subsections: [
+                {
+                  id: "4.1",
+                  name: "4.1 Voting behaviour and the media.",
+                  bullets: [
+                    { id: "4.1.1", text: "Case studies of three key general elections: 1979, 1997 and 2017/2019." },
+                    { id: "4.1.2", text: "Factors influencing voting behaviour: social alignment (class, age, ethnicity, region, gender) vs short-term valency/issue voting." },
+                    { id: "4.1.3", text: "The role and impact of newspapers, broadcast media, social media and opinion polls." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that class and region remain the most important factors in influencing how people vote." }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "p1_m5",
+              title: "Core Political Ideas",
+              subsections: [
+                {
+                  id: "5.1",
+                  name: "Conservatism",
+                  bullets: [
+                    { id: "5.1.1", text: "Core ideas: human imperfection, organic society, tradition, pragmatism, paternalism, hierarchy, property." },
+                    { id: "5.1.2", text: "Strands: Traditional Conservatism, One Nation Conservatism, Neo-Liberal and Neo-Conservative New Right." },
+                    { id: "5.1.3", text: "Tensions within conservatism across core strands and thinker perspectives." }
+                  ],
+                  thinkers: ["Thomas Hobbes", "Edmund Burke", "Michael Oakeshott", "Ayn Rand", "Robert Nozick"],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "To what extent does conservatism support paternalism?" }
+                  ]
+                },
+                {
+                  id: "5.2",
+                  name: "Liberalism",
+                  bullets: [
+                    { id: "5.2.1", text: "Core ideas: individualism, freedom/liberty, reason, justice, toleration, constitutionalism, foundational equality." },
+                    { id: "5.2.2", text: "Strands: Classical Liberalism vs Modern Liberalism." },
+                    { id: "5.2.3", text: "Tensions within liberalism: negative vs positive freedom, state intervention, economic management." }
+                  ],
+                  thinkers: ["John Locke", "Mary Wollstonecraft", "John Stuart Mill", "John Rawls", "Betty Friedan"],
+                  questions: [
+                    { year: "2025", type: "Essay", prompt: "To what extent is liberalism united in its ideas about democracy?" }
+                  ]
+                },
+                {
+                  id: "5.3",
+                  name: "Socialism",
+                  bullets: [
+                    { id: "5.3.1", text: "Core ideas: collectivism, common humanity, equality, social class, common ownership, fraternity." },
+                    { id: "5.3.2", text: "Strands: Revolutionary Socialism, Democratic Socialism, Social Democracy, Third Way." },
+                    { id: "5.3.3", text: "Tensions within socialism: revolutionary vs evolutionary change, state ownership, role of capitalism." }
                   ],
                   thinkers: ["Karl Marx & Friedrich Engels", "Beatrice Webb", "Rosa Luxemburg", "Anthony Crosland", "Anthony Giddens"],
                   questions: [
-                    { year: "2026", type: "Essay", prompt: "To what extent does socialism agree over the role of the state?" },
-                    { year: "2025", type: "Essay", prompt: "To what extent is socialism united in its view of human nature?" }
+                    { year: "2026", type: "Essay", prompt: "To what extent does socialism agree over the role of the state?" }
                   ]
                 }
               ]
@@ -254,83 +344,123 @@
           modules: [
             {
               id: "p2_m1",
-              title: "Module 3: UK Government",
+              title: "1. The Constitution",
               subsections: [
                 {
-                  id: "3.1",
-                  name: "3.1 The Constitution",
+                  id: "6.1",
+                  name: "1.1 The nature and sources of the UK constitution.",
                   bullets: [
-                    { id: "3.1.1", text: "Nature and sources of the UK Constitution: uncodified, unentrenched, parliamentary sovereignty, rule of law, statute law, common law, conventions." },
-                    { id: "3.1.2", text: "Constitutional reform since 1997: House of Lords reform, electoral reform, devolution, Human Rights Act 1998, Supreme Court creation." },
-                    { id: "3.1.3", text: "Devolution: powers and impact of devolved institutions in Scotland, Wales, and Northern Ireland; asymmetrical devolution." },
-                    { id: "3.1.4", text: "Debates on further reform: codification, further devolution, elected House of Lords, English Parliament proposals." }
+                    { id: "6.1.1", text: "Uncodified, unentrenched, parliamentary sovereignty, rule of law, statute law, common law, conventions, authoritative works." }
                   ],
                   thinkers: [],
                   questions: [
-                    { year: "2026", type: "Essay", prompt: "Evaluate the view that devolution has been a success." },
                     { year: "2025", type: "Source", prompt: "Using the source, evaluate the view that the UK’s constitution is not working effectively." }
                   ]
                 },
                 {
-                  id: "3.2",
-                  name: "3.2 Parliament",
+                  id: "6.2",
+                  name: "1.2 How the constitution has changed since 1997.",
                   bullets: [
-                    { id: "3.2.1", text: "Structure and role of House of Commons and House of Lords: legislative functions, scrutiny, representation, legitimacy." },
-                    { id: "3.2.2", text: "Comparative powers of Commons and Lords: Parliament Acts 1911/1949, Salisbury Convention, financial privilege." },
-                    { id: "3.2.3", text: "Scrutiny mechanisms: Select Committees, PMQs, debates, backbenchers, opposition parties." }
+                    { id: "6.2.1", text: "House of Lords reform, electoral reform, devolution, Human Rights Act 1998, Supreme Court creation." }
                   ],
                   thinkers: [],
                   questions: [
-                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that committees in the House of Commons are highly effective." },
-                    { year: "2025", type: "Essay", prompt: "Evaluate the view that backbenchers in the House of Commons are increasingly effective at carrying out their roles." }
-                  ]
-                },
-                {
-                  id: "3.3",
-                  name: "3.3 Prime Minister and Executive",
-                  bullets: [
-                    { id: "3.3.1", text: "Structure, role, and powers of the Executive: PM powers, Cabinet, ministers, patronage, prerogative powers." },
-                    { id: "3.3.2", text: "Cabinet government vs Prime Ministerial dominance: factors dictating PM power and cabinet influence." },
-                    { id: "3.3.3", text: "Ministerial responsibility: Individual Ministerial Responsibility vs Collective Ministerial Responsibility conventions and developments." }
-                  ],
-                  thinkers: [],
-                  questions: [
-                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the Executive now dominates Parliament." },
-                    { year: "2025", type: "Essay", prompt: "Evaluate the view that Prime Ministers now have too much power." }
-                  ]
-                },
-                {
-                  id: "3.4",
-                  name: "3.4 Relations Between Branches",
-                  bullets: [
-                    { id: "3.4.1", text: "The Supreme Court and judicial power: judicial independence, judicial neutrality, judicial review, HRA Declarations of Incompatibility." },
-                    { id: "3.4.2", text: "Sovereignty and EU withdrawal: impact of EU membership and Brexit on parliamentary sovereignty." }
-                  ],
-                  thinkers: [],
-                  questions: [
-                    { year: "2026", type: "Essay", prompt: "Evaluate the view that the Supreme Court’s influence over the Executive and Parliament has grown too large." }
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that devolution has been a success." }
                   ]
                 }
               ]
             },
             {
               id: "p2_m2",
-              title: "Module 4: Non-Core Political Ideas",
+              title: "2. Parliament",
               subsections: [
                 {
-                  id: "4.1",
-                  optionKey: "feminism",
-                  name: "4.1 Feminism",
+                  id: "7.1",
+                  name: "2.1 The structure and role of the House of Commons and House of Lords.",
                   bullets: [
-                    { id: "4.1.1", text: "Core ideas: sex vs gender, patriarchy, the personal is political, intersectionality, equality vs difference." },
-                    { id: "4.1.2", text: "Strands: Liberal Feminism, Radical Feminism, Socialist Feminism, Postmodern/Difference Feminism." },
-                    { id: "4.1.3", text: "Tensions within feminism: state role, economic reform, family structure, gender identity." }
+                    { id: "7.1.1", text: "The functions of Parliament: legislation, scrutiny, representation, legitimacy." },
+                    { id: "7.1.2", text: "The comparative powers of the House of Commons and House of Lords." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that committees in the House of Commons are highly effective." }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "p2_m3",
+              title: "3. Prime Minister and executive",
+              subsections: [
+                {
+                  id: "8.1",
+                  name: "3.1 The structure, role and powers of the executive.",
+                  bullets: [
+                    { id: "8.1.1", text: "Prime Minister, Cabinet, ministers, patronage, prerogative powers, ministerial responsibility." }
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the Executive now dominates Parliament." }
+                  ]
+                }
+              ]
+            },
+            {
+              id: "p2_m4",
+              title: "Non-Core Political Ideas",
+              subsections: [
+                {
+                  id: "9.1",
+                  optionKey: "feminism",
+                  name: "Feminism",
+                  bullets: [
+                    { id: "9.1.1", text: "Core ideas: sex vs gender, patriarchy, the personal is political, intersectionality, equality vs difference." },
+                    { id: "9.1.2", text: "Strands: Liberal Feminism, Radical Feminism, Socialist Feminism, Postmodern/Difference Feminism." }
                   ],
                   thinkers: ["Charlotte Perkins Gilman", "Simone de Beauvoir", "Kate Millett", "Sheila Rowbotham", "bell hooks"],
                   questions: [
-                    { year: "2026", type: "Essay", prompt: "To what extent is feminism divided in its views on society?" },
-                    { year: "2026", type: "Essay", prompt: "To what extent is feminism united in its views on human nature?" }
+                    { year: "2026", type: "Essay", prompt: "To what extent is feminism divided in its views on society?" }
                   ]
+                },
+                {
+                  id: "9.2",
+                  optionKey: "anarchism",
+                  name: "Anarchism",
+                  bullets: [
+                    { id: "9.2.1", text: "Core ideas: rejection of state authority, liberty, anti-statism, anti-clericalism." }
+                  ],
+                  thinkers: ["Max Stirner", "Pierre-Joseph Proudhon", "Mikhail Bakunin", "Peter Kropotkin", "Emma Goldman"],
+                  questions: []
+                },
+                {
+                  id: "9.3",
+                  optionKey: "ecologism",
+                  name: "Ecologism",
+                  bullets: [
+                    { id: "9.3.1", text: "Core ideas: ecology, ecocentrism, sustainability, bio-ethic, post-materialism." }
+                  ],
+                  thinkers: ["Aldo Leopold", "Rachel Carson", "E.F. Schumacher", "Carolyn Merchant", "James Lovelock"],
+                  questions: []
+                },
+                {
+                  id: "9.4",
+                  optionKey: "multiculturalism",
+                  name: "Multiculturalism",
+                  bullets: [
+                    { id: "9.4.1", text: "Core ideas: culture and identity, minority rights, diversity, toleration." }
+                  ],
+                  thinkers: ["Isaiah Berlin", "Charles Taylor", "Bhikhu Parekh", "Tariq Modood", "Will Kymlicka"],
+                  questions: []
+                },
+                {
+                  id: "9.5",
+                  optionKey: "nationalism",
+                  name: "Nationalism",
+                  bullets: [
+                    { id: "9.5.1", text: "Core ideas: the nation, self-determination, nation-state, organic community." }
+                  ],
+                  thinkers: ["Jean-Jacques Rousseau", "Johann Gottfried von Herder", "Giuseppe Mazzini", "Charles Maurras", "Marcus Garvey"],
+                  questions: []
                 }
               ]
             }
@@ -343,15 +473,13 @@
           modules: [
             {
               id: "p3a_m1",
-              title: "Module 5: US Government & Politics",
+              title: "US Government and Politics",
               subsections: [
                 {
-                  id: "5.1",
-                  name: "5.1 US Constitution and Federalism",
+                  id: "10.1",
+                  name: "1. The US Constitution and federalism.",
                   bullets: [
-                    { id: "5.1.1", text: "Nature of US Constitution: codified, rigid, separation of powers, checks and balances, amendment process." },
-                    { id: "5.1.2", text: "Federalism: dual vs cooperative federalism, states' rights, federal expansion." },
-                    { id: "5.1.3", text: "Comparative: US vs UK constitutional features and federalism vs devolution." }
+                    { id: "10.1.1", text: "Codified nature, amendment process, separation of powers, checks and balances, federalism." }
                   ],
                   thinkers: [],
                   questions: [
@@ -359,12 +487,10 @@
                   ]
                 },
                 {
-                  id: "5.2",
-                  name: "5.2 US Congress",
+                  id: "10.2",
+                  name: "2. US Congress.",
                   bullets: [
-                    { id: "5.2.1", text: "Structure & powers: House of Representatives vs Senate, legislative process, committee system, filibuster." },
-                    { id: "5.2.2", text: "Functions: oversight, representation, partisanship, gridlock." },
-                    { id: "5.2.3", text: "Comparative: US Congress vs UK Parliament." }
+                    { id: "10.2.1", text: "House of Representatives and Senate structure, legislative process, oversight, representation." }
                   ],
                   thinkers: [],
                   questions: [
@@ -372,12 +498,10 @@
                   ]
                 },
                 {
-                  id: "5.3",
-                  name: "5.3 US Presidency",
+                  id: "10.3",
+                  name: "3. US Presidency.",
                   bullets: [
-                    { id: "5.3.1", text: "Formal & informal powers: Commander-in-Chief, Executive Orders, EXOP, Cabinet." },
-                    { id: "5.3.2", text: "Theories of presidential power: Imperial vs Imperilled Presidency." },
-                    { id: "5.3.3", text: "Comparative: US President vs UK Prime Minister." }
+                    { id: "10.3.1", text: "Formal and informal sources of power, EXOP, Cabinet, imperial vs imperilled presidency." }
                   ],
                   thinkers: [],
                   questions: [
@@ -385,12 +509,10 @@
                   ]
                 },
                 {
-                  id: "5.4",
-                  name: "5.4 US Supreme Court and Civil Rights",
+                  id: "10.4",
+                  name: "4. US Supreme Court and civil rights.",
                   bullets: [
-                    { id: "5.4.1", text: "Supreme Court powers: judicial review, appointments, judicial activism vs restraint." },
-                    { id: "5.4.2", text: "Rights protection: Bill of Rights, 14th Amendment, racial equality, affirmative action." },
-                    { id: "5.4.3", text: "Comparative: US Supreme Court vs UK Supreme Court." }
+                    { id: "10.4.1", text: "Judicial review, appointments, judicial activism vs restraint, Bill of Rights, racial equality." }
                   ],
                   thinkers: [],
                   questions: [
@@ -400,16 +522,47 @@
               ]
             }
           ]
+        },
+        {
+          paperId: "paper3b",
+          optionRoute: "3b",
+          title: "Paper 3B: Global Politics (Comparative)",
+          modules: [
+            {
+              id: "p3b_m1",
+              title: "Global Politics",
+              subsections: [
+                {
+                  id: "11.1",
+                  name: "1. Sovereignty and globalisation.",
+                  bullets: [
+                    { id: "11.1.1", text: "State sovereignty, political/economic/cultural globalisation, state decline debates." }
+                  ],
+                  thinkers: [],
+                  questions: []
+                },
+                {
+                  id: "11.2",
+                  name: "2. Global governance: political and economic.",
+                  bullets: [
+                    { id: "11.2.1", text: "UN, IMF, World Bank, WTO, G7/G20 roles and reform debates." }
+                  ],
+                  thinkers: [],
+                  questions: []
+                }
+              ]
+            }
+          ]
         }
       ]
     };
 
-    // --- 2. STATE & AUTOMATIC ROLLUP ENGINE ---
+    // --- 2. STATE & WEIGHTED AVERAGE ROLLUP ENGINE ---
     let appState = {
       p3Route: "3a",
       nonCore: "feminism",
       theme: "dark",
-      bulletStatuses: {}, // Tracks status of each individual spec bullet point
+      bulletStatuses: {},
       questionStatuses: {}
     };
 
@@ -428,45 +581,39 @@
       updateProgress();
     }
 
-    // Dynamic Rollup Logic
     function getSubsectionStatus(sub) {
       if (!sub.bullets || sub.bullets.length === 0) return 0;
-      const statuses = sub.bullets.map(b => appState.bulletStatuses[b.id] || 0);
-      const min = Math.min(...statuses);
-      const max = Math.max(...statuses);
-      
-      if (statuses.every(s => s === 3)) return 3;
-      if (statuses.every(s => s >= 2)) return 2;
-      if (statuses.every(s => s >= 1)) return 1;
-      return 0; // If any bullet is 0 (Not Started)
+      const scores = sub.bullets.map(b => appState.bulletStatuses[b.id] || 0);
+      const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+      return Math.round(avg);
     }
 
     function getModuleStatus(mod) {
-      const subStatuses = mod.subsections
-        .filter(s => !s.optionKey || s.optionKey === appState.nonCore)
-        .map(s => getSubsectionStatus(s));
-      if (subStatuses.length === 0) return 0;
-      if (subStatuses.every(s => s === 3)) return 3;
-      if (subStatuses.every(s => s >= 2)) return 2;
-      if (subStatuses.every(s => s >= 1)) return 1;
-      return 0;
+      const activeSubs = mod.subsections.filter(s => !s.optionKey || s.optionKey === appState.nonCore);
+      if (activeSubs.length === 0) return 0;
+      const scores = activeSubs.map(s => getSubsectionStatus(s));
+      const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+      return Math.round(avg);
     }
 
     function getPaperStatus(paper) {
-      const modStatuses = paper.modules.map(m => getModuleStatus(m));
-      if (modStatuses.length === 0) return 0;
-      if (modStatuses.every(s => s === 3)) return 3;
-      if (modStatuses.every(s => s >= 2)) return 2;
-      if (modStatuses.every(s => s >= 1)) return 1;
-      return 0;
+      if (!paper.modules || paper.modules.length === 0) return 0;
+      const scores = paper.modules.map(m => getModuleStatus(m));
+      const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+      return Math.round(avg);
     }
 
     function getStatusBadgeHtml(statusNum) {
-      const labels = ["🔴 Not Started", "🟠 Notes Done", "🟡 Memorised", "🟢 Exam Ready"];
+      const labels = [
+        "🔴 Not Started",
+        "🟠 Some Notes Done",
+        "🟡 Most Terms & Thinkers Memorised",
+        "🟢 Exam Ready"
+      ];
       return `<span class="status-badge status-${statusNum}">${labels[statusNum]}</span>`;
     }
 
-    // --- 3. UI RENDERING ---
+    // --- 3. DOM RENDERING ---
     function render() {
       const container = document.getElementById("appContainer");
       container.innerHTML = "";
@@ -476,11 +623,12 @@
 
         const paperEl = document.createElement("div");
         paperEl.className = "paper-card";
+        paperEl.id = `paper_${paper.paperId}`;
 
         const paperStat = getPaperStatus(paper);
         let paperHtml = `<div class="paper-title">
           <span>${paper.title}</span>
-          ${getStatusBadgeHtml(paperStat)}
+          <span id="badge_${paper.paperId}">${getStatusBadgeHtml(paperStat)}</span>
         </div>`;
 
         paper.modules.forEach(mod => {
@@ -492,17 +640,16 @@
 
             const subStat = getSubsectionStatus(sub);
 
-            // Render Granular Bullets
             let bulletsHtml = `<div class="section-subtitle">Specification Bullet Points</div>`;
             sub.bullets.forEach(b => {
               const bStat = appState.bulletStatuses[b.id] || 0;
               bulletsHtml += `
                 <div class="bullet-item">
-                  <span class="bullet-text"><strong>${b.id}</strong> ${b.text}</span>
-                  <select class="status-select status-${bStat}" onchange="updateBulletStatus('${b.id}', this.value)">
+                  <span class="bullet-text"><span class="bullet-symbol">•</span><span>${b.text}</span></span>
+                  <select class="status-select status-${bStat}" id="select_${b.id}" onchange="updateBulletStatus('${b.id}', '${sub.id}', '${mod.id}', '${paper.paperId}', this.value)">
                     <option value="0" class="status-0" ${bStat==0?'selected':''}>🔴 Not Started</option>
-                    <option value="1" class="status-1" ${bStat==1?'selected':''}>🟠 Notes Done</option>
-                    <option value="2" class="status-2" ${bStat==2?'selected':''}>🟡 Memorised</option>
+                    <option value="1" class="status-1" ${bStat==1?'selected':''}>🟠 Some Notes Done</option>
+                    <option value="2" class="status-2" ${bStat==2?'selected':''}>🟡 Most Terms & Thinkers Memorised</option>
                     <option value="3" class="status-3" ${bStat==3?'selected':''}>🟢 Exam Ready</option>
                   </select>
                 </div>`;
@@ -536,7 +683,7 @@
               <div class="subsection-card">
                 <div class="subsection-header">
                   <span class="subsection-name">${sub.name}</span>
-                  ${getStatusBadgeHtml(subStat)}
+                  <span id="badge_sub_${sub.id}">${getStatusBadgeHtml(subStat)}</span>
                 </div>
                 <button class="drawer-toggle" onclick="toggleDrawer('${sub.id}_drawer')">Granular Spec & Questions (${(sub.questions || []).length}) ▼</button>
                 <div id="${sub.id}_drawer" class="drawer-content">
@@ -551,7 +698,7 @@
             <div class="module-block">
               <div class="module-title">
                 <span>${mod.title}</span>
-                ${getStatusBadgeHtml(modStat)}
+                <span id="badge_mod_${mod.id}">${getStatusBadgeHtml(modStat)}</span>
               </div>
               ${subHtml}
             </div>`;
@@ -569,10 +716,48 @@
       if (el) el.classList.toggle("open");
     }
 
-    function updateBulletStatus(bulletId, val) {
+    function updateBulletStatus(bulletId, subId, modId, paperId, val) {
       appState.bulletStatuses[bulletId] = parseInt(val, 10);
       saveState();
-      render();
+
+      const sel = document.getElementById(`select_${bulletId}`);
+      if (sel) {
+        sel.className = `status-select status-${val}`;
+      }
+
+      let targetSub = null, targetMod = null, targetPaper = null;
+
+      SPEC_DATA.papers.forEach(p => {
+        if (p.paperId === paperId) {
+          targetPaper = p;
+          p.modules.forEach(m => {
+            if (m.id === modId) {
+              targetMod = m;
+              m.subsections.forEach(s => {
+                if (s.id === subId) targetSub = s;
+              });
+            }
+          });
+        }
+      });
+
+      if (targetSub) {
+        const newSubStat = getSubsectionStatus(targetSub);
+        const subBadge = document.getElementById(`badge_sub_${subId}`);
+        if (subBadge) subBadge.innerHTML = getStatusBadgeHtml(newSubStat);
+      }
+
+      if (targetMod) {
+        const newModStat = getModuleStatus(targetMod);
+        const modBadge = document.getElementById(`badge_mod_${modId}`);
+        if (modBadge) modBadge.innerHTML = getStatusBadgeHtml(newModStat);
+      }
+
+      if (targetPaper) {
+        const newPaperStat = getPaperStatus(targetPaper);
+        const paperBadge = document.getElementById(`badge_${paperId}`);
+        if (paperBadge) paperBadge.innerHTML = getStatusBadgeHtml(newPaperStat);
+      }
     }
 
     function updateQuestionStatus(qKey, val) {
@@ -602,7 +787,7 @@
       document.getElementById("overallBar").style.width = `${pct}%`;
     }
 
-    // --- 4. EVENT LISTENERS & IMPORT/EXPORT ---
+    // --- 4. EVENT LISTENERS ---
     document.getElementById("p3RouteSelect").addEventListener("change", (e) => {
       appState.p3Route = e.target.value;
       saveState();
