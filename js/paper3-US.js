@@ -19,7 +19,7 @@ window.PAPER3_US = {
         },
         {
           id: "p3_sub_1_2",
-          name: "1.2 Key features of the US Constitution and evaluation of effectiveness today",
+          name: "1.2 Key features of the US Constitution and an evaluation of their effectiveness today",
           bullets: [
             { id: "p3_b_1_2_1", text: "Federalism." },
             { id: "p3_b_1_2_2", text: "Separation of powers and checks and balances." },
@@ -58,21 +58,21 @@ window.PAPER3_US = {
       subsections: [
         {
           id: "p3_sub_2_1",
-          name: "2.1 The structure of Congress and distribution of powers",
+          name: "2.1 The structure of Congress",
           bullets: [
             { id: "p3_b_2_1_1", text: "Bicameral nature, the membership of Congress and the election cycle." },
-            { id: "p3_b_2_1_2", text: "Distribution of powers: powers given to Congress in the Constitution, exclusive powers of each House and concurrent powers." }
+            { id: "p3_b_2_1_2", text: "2.1.1 The distribution of powers within Congress: powers given to Congress in the Constitution, the exclusive powers of each House and the concurrent powers of Congress." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_2_2",
-          name: "2.2 The functions of Congress (Representation, Legislative, Oversight)",
+          name: "2.2 The functions of Congress",
           bullets: [
-            { id: "p3_b_2_2_1", text: "Representation: Factors affecting voting behaviour of elected representatives (parties, caucuses, constituency, interest groups, lobbyists)." },
-            { id: "p3_b_2_2_2", text: "Legislative: The legislative process, strengths/weaknesses, chamber differences, policy significance and effectiveness of laws passed." },
-            { id: "p3_b_2_2_3", text: "Oversight: Relationship with presidency, checks on other branches (presidency and Supreme Court) and institutional effectiveness." }
+            { id: "p3_b_2_2_1", text: "2.2.1 Representation: Factors that affect voting behaviour of elected representatives within Congress (parties and caucuses, constituency, interest groups and lobbyists)." },
+            { id: "p3_b_2_2_2", text: "2.2.2 Legislative: The legislative process, including strengths and weaknesses; chamber differences; policy significance and effectiveness of laws passed." },
+            { id: "p3_b_2_2_3", text: "2.2.3 Oversight: Factors that influence the relationship between Congress and the presidency; Congress's role as a check on other branches (presidency and Supreme Court) and institutional effectiveness." }
           ],
           thinkers: [],
           questions: []
@@ -84,7 +84,7 @@ window.PAPER3_US = {
             { id: "p3_b_2_3_1", text: "Changing roles and powers of Congress and their relative importance." },
             { id: "p3_b_2_3_2", text: "The adequacy of its representative role." },
             { id: "p3_b_2_3_3", text: "Changing significance of parties in Congress." },
-            { id: "p3_b_2_3_4", text: "Significance and effectiveness of constitutional powers." }
+            { id: "p3_b_2_3_4", text: "Significance and effectiveness of the powers outlined in the Constitution." }
           ],
           thinkers: [],
           questions: [
@@ -99,33 +99,32 @@ window.PAPER3_US = {
       subsections: [
         {
           id: "p3_sub_3_1",
-          name: "3.1 Formal sources of presidential power and their use",
+          name: "3.1 Formal sources of presidential power as outlined in the US Constitution and their use",
           bullets: [
-            { id: "p3_b_3_1_1", text: "Role as Head of State and Head of Government." },
-            { id: "p3_b_3_1_2", text: "Significance of formal powers with reference to presidents since 2000." }
+            { id: "p3_b_3_1_1", text: "The role as the Head of State and as the Head of Government." },
+            { id: "p3_b_3_1_2", text: "The significance of these powers with reference to presidents since 2000." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_3_2",
-          name: "3.2 Informal sources of presidential power and EXOP",
+          name: "3.2 Informal sources of presidential power and their use",
           bullets: [
-            { id: "p3_b_3_2_1", text: "Electoral mandate, executive orders, national events and the cabinet." },
+            { id: "p3_b_3_2_1", text: "The electoral mandate, executive orders, national events and the cabinet." },
             { id: "p3_b_3_2_2", text: "Powers of persuasion." },
-            { id: "p3_b_3_2_3", text: "Executive Office of the President (EXOP): National Security Council (NSC), Office of Management and Budget (OMB), White House Office (WHO)." },
-            { id: "p3_b_3_2_4", text: "Significance of informal powers with reference to presidents since 2000." }
+            { id: "p3_b_3_2_3", text: "Executive Office of the President (EXOP), including the role of the National Security Council (NSC), Office of Management and Budget (OMB) and the White House Office (WHO)." },
+            { id: "p3_b_3_2_4", text: "The significance of these powers with reference to presidents since 2000." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_3_3",
-          name: "3.3 Institutional relationships and limitations on presidential power",
+          name: "3.3 The presidency: Relationships and Limitations",
           bullets: [
-            { id: "p3_b_3_3_1", text: "Relationships between the presidency, Congress, and Supreme Court and why this varies." },
-            { id: "p3_b_3_3_2", text: "Limitations: term cycle, Congress, Supreme Court, Constitution, election cycle and divided government." },
-            { id: "p3_b_3_3_3", text: "Significance of limitations with reference to presidents since 2000." }
+            { id: "p3_b_3_3_1", text: "3.3.1 Relationships between the presidency and Congress and the Supreme Court and why this varies." },
+            { id: "p3_b_3_3_2", text: "3.3.2 Limitations on presidential power: changing nature of power over term in office; Congress, Supreme Court and Constitution; election cycle and divided government; significance with reference to presidents since 2000." }
           ],
           thinkers: [],
           questions: []
@@ -134,10 +133,10 @@ window.PAPER3_US = {
           id: "p3_sub_3_4",
           name: "3.4 Interpretations and debates of the US presidency",
           bullets: [
-            { id: "p3_b_3_4_1", text: "How effectively presidents have achieved their aims." },
+            { id: "p3_b_3_4_1", text: "How effectively they have achieved their aims." },
             { id: "p3_b_3_4_2", text: "Imperial and imperilled presidencies." },
-            { id: "p3_b_3_4_3", text: "Extent of presidential accountability to Congress." },
-            { id: "p3_b_3_4_4", text: "Role and power of the president in foreign policy (presidents since 2000)." }
+            { id: "p3_b_3_4_3", text: "The extent of presidential accountability to Congress." },
+            { id: "p3_b_3_4_4", text: "The role and power of the president in foreign policy (with reference to presidents since 2000)." }
           ],
           thinkers: [],
           questions: [
@@ -152,34 +151,63 @@ window.PAPER3_US = {
       subsections: [
         {
           id: "p3_sub_4_1",
-          name: "4.1 Nature and role of the Supreme Court & 4.2 Appointment process",
+          name: "4.1 The nature and role of the Supreme Court",
           bullets: [
-            { id: "p3_b_4_1_1", text: "US Constitution, independent nature of Court, judicial review process (Marbury v Madison 1803, Fletcher v Peck 1810)." },
-            { id: "p3_b_4_2_1", text: "Appointment process: strengths/weaknesses, nominee factors, current composition and ideological balance." }
+            { id: "p3_b_4_1_1", text: "The US Constitution." },
+            { id: "p3_b_4_1_2", text: "The independent nature of the Supreme Court." },
+            { id: "p3_b_4_1_3", text: "The judicial review process (Marbury vs Madison 1803 and Fletcher vs Peck 1810)." }
+          ],
+          thinkers: [],
+          questions: []
+        },
+        {
+          id: "p3_sub_4_2",
+          name: "4.2 The appointment process for the Supreme Court",
+          bullets: [
+            { id: "p3_b_4_2_1", text: "Strengths and weaknesses of the process." },
+            { id: "p3_b_4_2_2", text: "Factors influencing the president’s choice of nominee." },
+            { id: "p3_b_4_2_3", text: "The current composition and ideological balance of the Court." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_4_3",
-          name: "4.3 Public policy, 4.4 Civil liberties & 4.5 Race rights",
+          name: "4.3 The Supreme Court and public policy",
           bullets: [
-            { id: "p3_b_4_3_1", text: "Impact on public policy (post-2005 examples): Living Constitution vs originalism; judicial activism vs restraint." },
-            { id: "p3_b_4_4_1", text: "Protection of civil liberties (Bill of Rights, amendments, Supreme Court rulings)." },
-            { id: "p3_b_4_5_1", text: "Methods, influence and effectiveness of racial rights campaigns (voting rights, affirmative action, representation)." }
+            { id: "p3_b_4_3_1", text: "The impact of the Supreme Court on public policy in the US, with a range of examples, including examples post-2005." },
+            { id: "p3_b_4_3_2", text: "Political significance debate: the Living Constitution vs originalism; the role of judicial activism and judicial restraint and criticisms of each." }
+          ],
+          thinkers: [],
+          questions: []
+        },
+        {
+          id: "p3_sub_4_4",
+          name: "4.4 The protection of civil liberties and rights in the US today",
+          bullets: [
+            { id: "p3_b_4_4_1", text: "Rights protected by the Constitution, by the Bill of Rights, by subsequent constitutional amendments and by rulings of the Supreme Court." }
+          ],
+          thinkers: [],
+          questions: []
+        },
+        {
+          id: "p3_sub_4_5",
+          name: "4.5 Race and rights in contemporary US politics",
+          bullets: [
+            { id: "p3_b_4_5_1", text: "The methods, influence and effectiveness of racial rights campaigns and the impact on current domestic policy: voting rights, affirmative action and representation." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_4_6",
-          name: "4.6 Interpretations and debates of the US Supreme Court",
+          name: "4.6 Interpretations and debates of the US Supreme Court and civil rights",
           bullets: [
-            { id: "p3_b_4_6_1", text: "Political versus judicial nature of the Supreme Court." },
+            { id: "p3_b_4_6_1", text: "The political versus judicial nature of the Supreme Court." },
             { id: "p3_b_4_6_2", text: "Living Constitution ideology as against originalism." },
-            { id: "p3_b_4_6_3", text: "How effectively civil and constitutional rights have been upheld by the Supreme Court." },
-            { id: "p3_b_4_6_4", text: "Extent of Court powers and effectiveness of checks and balances." },
-            { id: "p3_b_4_6_5", text: "Successes and failures of measures to promote equality (affirmative action, immigration reform)." }
+            { id: "p3_b_4_6_3", text: "How effectively civil and constitutional rights have been upheld by the Supreme Court and the effectiveness of this protection." },
+            { id: "p3_b_4_6_4", text: "The extent of their powers and the effectiveness of checks and balances." },
+            { id: "p3_b_4_6_5", text: "The successes and failures of measures to promote equality, including affirmative action and immigration reform." }
           ],
           thinkers: [],
           questions: [
@@ -194,32 +222,31 @@ window.PAPER3_US = {
       subsections: [
         {
           id: "p3_sub_5_1",
-          name: "5.1 Electoral systems and campaign finance",
+          name: "5.1 Electoral systems in the USA",
           bullets: [
-            { id: "p3_b_5_1_1", text: "Presidential election process: requirements, invisible primary, primaries/caucuses, conventions, Electoral College, party system." },
-            { id: "p3_b_5_1_2", text: "Importance of incumbency in presidential and congressional elections." },
-            { id: "p3_b_5_1_3", text: "Campaign finance legislation and implications of Supreme Court rulings." }
+            { id: "p3_b_5_1_1", text: "5.1.1 Elections and their significance: presidential election process (requirements, invisible primary, primaries/caucuses, conventions, electoral college, party system); presidential and congressional incumbency." },
+            { id: "p3_b_5_1_2", text: "5.1.2 Campaign finance: role, current legislation, and implications of Supreme Court rulings." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_5_2",
-          name: "5.2 Key ideas, principles and supporter coalitions of parties",
+          name: "5.2 The key ideas and principles of the Democratic and Republican parties",
           bullets: [
-            { id: "p3_b_5_2_1", text: "Democrat & Republican attitudes towards social/moral issues, economic intervention, social welfare, immigration." },
-            { id: "p3_b_5_2_2", text: "Internal party factions (Democrats: liberals, moderates, conservatives; Republicans: moderates, social conservatives, fiscal conservatives)." },
-            { id: "p3_b_5_2_3", text: "Voter coalitions: race, religion, gender, and education influencing voting patterns in post-2000 elections." }
+            { id: "p3_b_5_2_1", text: "5.2.1 Distribution of power and changing significance: attitudes towards social/moral issues, economic intervention, social welfare, immigration." },
+            { id: "p3_b_5_2_2", text: "5.2.2 Current conflicts and tendencies within parties (Democrats: liberals, moderates, conservatives; Republicans: moderates, social conservatives, fiscal conservatives)." },
+            { id: "p3_b_5_2_3", text: "5.2.3 Coalition of supporters: voter factors influencing voting patterns (race, religion, gender, education in post-2000 campaigns)." }
           ],
           thinkers: [],
           questions: []
         },
         {
           id: "p3_sub_5_3",
-          name: "5.3 Interest groups & 5.4 Debates on US democracy",
+          name: "5.3 Interest groups in the USA & 5.4 Interpretations and debates",
           bullets: [
-            { id: "p3_b_5_3_1", text: "Methods, resources, tactics and power of single interest, professional, or policy groups." },
-            { id: "p3_b_5_4_1", text: "Debates around Electoral College reform, campaign finance reform, incumbency, and interest group influence." }
+            { id: "p3_b_5_3_1", text: "5.3 Interest groups: influence, methods and power of single interest, professional, or policy groups." },
+            { id: "p3_b_5_4_1", text: "5.4 Debates: advantages/disadvantages of electoral process and Electoral College; campaign finance reform; incumbency; role and influence of interest groups." }
           ],
           thinkers: [],
           questions: []
@@ -234,9 +261,9 @@ window.PAPER3_US = {
           id: "p3_sub_6_1",
           name: "6.1 Theoretical approaches (Rational, Cultural, Structural)",
           bullets: [
-            { id: "p3_b_6_1_1", text: "Rational approach: Focuses on individuals acting rationally to achieve beneficial outcomes." },
-            { id: "p3_b_6_1_2", text: "Cultural approach: Focuses on shared group ideas, beliefs, and values determining actions." },
-            { id: "p3_b_6_1_3", text: "Structural approach: Focuses on institutional processes and formal structures determining outcomes." }
+            { id: "p3_b_6_1_1", text: "Rational approach: focuses on individuals within a political system acting rationally for beneficial outcomes." },
+            { id: "p3_b_6_1_2", text: "Cultural approach: focuses on groups (voters, parties, pressure groups) whose shared ideas, beliefs and values determine actions." },
+            { id: "p3_b_6_1_3", text: "Structural approach: focuses on institutions and formal processes determining political outcomes." }
           ],
           thinkers: [],
           questions: []
@@ -245,11 +272,11 @@ window.PAPER3_US = {
           id: "p3_sub_6_2",
           name: "6.2 Similarities and differences in the UK and USA",
           bullets: [
-            { id: "p3_b_6_2_1", text: "Constitutions: Codified vs uncodified, federalism vs devolution (explained via rational, cultural, structural approaches)." },
-            { id: "p3_b_6_2_2", text: "Legislatures: Powers, strengths, weaknesses, equality of chambers in UK and US." },
-            { id: "p3_b_6_2_3", text: "Executives: President vs Prime Minister role and powers, legislative accountability." },
-            { id: "p3_b_6_2_4", text: "Supreme Courts & Rights: Relative powers, independence, rights protection, interest group impact." },
-            { id: "p3_b_6_2_5", text: "Democracy: Party systems (two-party vs multi-party), internal unity, policy profiles, campaign finance, pressure group power." }
+            { id: "p3_b_6_2_1", text: "6.2.1 & 6.2.2 Constitutions: nature (codified/uncodified), provisions, principles (separation of powers, checks & balances), federalism vs devolution; accounted for via rational, cultural, and structural approaches." },
+            { id: "p3_b_6_2_2", text: "6.2.3 & 6.2.4 Legislative branches: powers, strengths, weaknesses, equality of Houses in UK and US; accounted for via theoretical approaches." },
+            { id: "p3_b_6_2_3", text: "6.2.5 & 6.2.6 Executive branches: President vs Prime Minister role and powers, legislative accountability; accounted for via theoretical approaches." },
+            { id: "p3_b_6_2_4", text: "6.2.7 & 6.2.8 Supreme Courts & Civil Rights: relative powers, independence, rights protection effectiveness, interest group impact; accounted for via theoretical approaches." },
+            { id: "p3_b_6_2_5", text: "6.2.9 & 6.2.10 Democracy & Participation: party systems (two-party vs multi-party), internal unity, policy profiles, campaign finance, pressure group power; accounted for via theoretical approaches." }
           ],
           thinkers: [],
           questions: []
