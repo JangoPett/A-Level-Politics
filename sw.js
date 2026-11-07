@@ -1,4 +1,4 @@
-const CACHE_NAME = 'politics-tracker-v1.1';
+const CACHE_NAME = 'politics-tracker-v2.0';
 const ASSETS = [
   './',
   './index.html',
