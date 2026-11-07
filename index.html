@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>A-Level Politics Topic & Question Tracker (Edexcel 9PL0)</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1e293b">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --status-0: #ef4444;
+      --status-1: #f59e0b;
+      --status-2: #eab308;
+      --status-3: #10b981;
+    }
+    body.light-mode {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 20px; max-width: 1050px; margin: 0 auto; transition: background 0.3s, color 0.3s; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    h1 { font-size: 1.5rem; font-weight: 700; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    button, select { background: var(--card-bg); color: var(--text); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: background 0.2s; }
+    button:hover, select:hover { border-color: var(--accent); }
+    
+    .overall-progress { background: var(--card-bg); border: 1px solid var(--border); padding: 16px; border-radius: 8px; margin-bottom: 24px; }
+    .progress-bar-bg { background: var(--border); height: 10px; border-radius: 5px; overflow: hidden; margin-top: 8px; }
+    .progress-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.4s ease; }
+    
+    .paper-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .paper-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--accent); display: flex; justify-content: space-between; align-items: center; }
+    
+    .topic-card { border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-top: 10px; background: rgba(0,0,0,0.05); }
+    .topic-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .topic-name { font-weight: 600; flex-grow: 1; }
+    .status-select { font-weight: 600; padding: 4px 8px; }
+    .status-0 { color: var(--status-0); }
+    .status-1 { color: var(--status-1); }
+    .status-2 { color: var(--status-2); }
+    .status-3 { color: var(--status-3); }
+
+    .drawer-toggle { background: transparent; border: none; color: var(--accent); cursor: pointer; font-size: 0.8rem; text-decoration: underline; padding: 4px 0; margin-top: 6px; display: inline-block; }
+    .drawer-content { display: none; margin-top: 12px; border-top: 1px dashed var(--border); padding-top: 12px; }
+    .drawer-content.open { display: block; }
+    
+    .section-subtitle { font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; margin-top: 10px; }
+    .spec-list { list-style: disc; margin-left: 20px; font-size: 0.85rem; color: var(--text-muted); }
+    .spec-list li { margin-bottom: 4px; }
+    .thinker-tag { display: inline-block; background: var(--border); padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; margin: 2px 4px 2px 0; }
+    
+    .question-item { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 10px; margin-top: 6px; font-size: 0.875rem; }
+    .question-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; }
+    
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>A-Level Politics Tracker</h1>
+      <span style="font-size: 0.8rem; color: var(--text-muted);">Pearson Edexcel (9PL0) Specification & Exam Matrix</span>
+    </div>
+    <div class="controls">
+      <button id="themeToggle">🌓 Theme</button>
+      <button id="exportBtn">📥 Export Data</button>
+      <button id="importBtn">📤 Import Data</button>
+      <input type="file" id="importFile" class="hidden" accept=".json">
+    </div>
+  </header>
+
+  <div class="overall-progress">
+    <div style="display: flex; justify-content: space-between; font-weight: 600;">
+      <span>Overall Course Readiness</span>
+      <span id="overallPercentage">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div id="overallBar" class="progress-bar-fill"></div>
+    </div>
+    <div style="margin-top: 12px; display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.875rem;">
+      <label>
+        <strong>Paper 3 Option:</strong>
+        <select id="p3RouteSelect">
+          <option value="3a">3A: US Politics</option>
+          <option value="3b">3B: Global Politics</option>
+        </select>
+      </label>
+      <label>
+        <strong>Non-Core Ideology:</strong>
+        <select id="nonCoreSelect">
+          <option value="feminism">Feminism</option>
+          <option value="anarchism">Anarchism</option>
+          <option value="ecologism">Ecologism</option>
+          <option value="multiculturalism">Multiculturalism</option>
+          <option value="nationalism">Nationalism</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <main id="appContainer"></main>
+
+  <script>
+    const SPEC_DATA = {
+      papers: [
+        {
+          paperId: "paper1",
+          title: "Paper 1: UK Politics & Core Ideologies",
+          modules: [
+            {
+              title: "UK Politics",
+              topics: [
+                {
+                  id: "p1_m1_t1",
+                  name: "1. Democracy and Participation",
+                  bullets: [
+                    "Direct vs representative democracy: features, advantages and disadvantages",
+                    "A wider franchise: major milestones in extending the right to vote",
+                    "Pressure groups and other influences: methods, resources, and success factors",
+                    "Rights in context: Human Rights Act, Equality Act, and rights protection"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view, using examples, that greater use of direct democracy in the UK would strengthen representative democracy." },
+                    { year: "2023", type: "Source", prompt: "Using the source, evaluate the view that the UK has a democratic deficit." },
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that referendums held in the UK since 1997 have brought significant benefits." }
+                  ]
+                },
+                {
+                  id: "p1_m1_t2",
+                  name: "2. Political Parties",
+                  bullets: [
+                    "Functions of political parties, funding methods, and funding reform debates",
+                    "Conservative, Labour, and Liberal Democrat parties: ideas, factions, and policies",
+                    "Emerging and minor political parties and their impact on elections",
+                    "Party system dynamics: two-party vs multi-party systems in the UK"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the dominance of the Labour and Conservative parties has now ended." },
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that the Labour Party is more internally divided than the Conservative Party." },
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that the current funding of political parties in the UK requires urgent reform." }
+                  ]
+                },
+                {
+                  id: "p1_m1_t3",
+                  name: "3. Electoral Systems",
+                  bullets: [
+                    "First Past the Post (FPTP): mechanics, outcomes, pros and cons",
+                    "Alternative systems: AMS, STV, SV - mechanics and practical applications",
+                    "Referendums: usage since 1997 and impact on parliamentary sovereignty",
+                    "Electoral system reform debates for UK General Elections"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view, by comparing to either the Additional Member System or the Single Transferable Vote, that first-past-the-post should be replaced for General Elections." },
+                    { year: "2024", type: "Source", prompt: "Using the source, evaluate the view that referendums since 1997 have not solved key political issues." }
+                  ]
+                },
+                {
+                  id: "p1_m1_t4",
+                  name: "4. Voting Behaviour and the Media",
+                  bullets: [
+                    "Social factors: class, age, ethnicity, region, gender, and alignment trends",
+                    "Centred and valency factors: party leaders, economic management, issue voting",
+                    "Media influence: newspapers, television, social media, and opinion polls",
+                    "Case studies of key general elections (e.g. 1979, 1997, 2017/2019)"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that class and region remain the most important factors in influencing how people vote." },
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view, with reference to at least three general elections, that social class and region have very little impact on voting behaviour." },
+                    { year: "2024", type: "Essay", prompt: "Evaluate the view that the outcomes of general elections are mostly decided by the media." }
+                  ]
+                }
+              ]
+            },
+            {
+              title: "Core Political Ideas",
+              topics: [
+                {
+                  id: "p1_m2_t1",
+                  name: "1. Conservatism",
+                  bullets: [
+                    "Core ideas: human imperfection, organic society, tradition, pragmatism, hierarchy",
+                    "Strands: Traditional, One Nation, Neo-Liberal, Neo-Conservative (New Right)",
+                    "Tensions over state intervention, economic freedom, and social authority"
+                  ],
+                  thinkers: ["Thomas Hobbes", "Edmund Burke", "Michael Oakeshott", "Ayn Rand", "Robert Nozick"],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "To what extent does conservatism support paternalism?" },
+                    { year: "2024", type: "Essay", prompt: "To what extent is there more agreement than disagreement within conservatism?" },
+                    { year: "2022.06", type: "Essay", prompt: "To what extent are conservatives united in their attitude towards the state?" }
+                  ]
+                },
+                {
+                  id: "p1_m2_t2",
+                  name: "2. Liberalism",
+                  bullets: [
+                    "Core ideas: individualism, freedom, reason, justice, toleration, constitutionalism",
+                    "Strands: Classical Liberalism vs Modern Liberalism",
+                    "Tensions over negative vs positive freedom, state role, and economic management"
+                  ],
+                  thinkers: ["John Locke", "Mary Wollstonecraft", "John Stuart Mill", "John Rawls", "Betty Friedan"],
+                  questions: [
+                    { year: "2025", type: "Essay", prompt: "To what extent is liberalism united in its ideas about democracy?" },
+                    { year: "2024", type: "Essay", prompt: "To what extent is liberalism divided over its approach to the economy?" },
+                    { year: "2023", type: "Essay", prompt: "To what extent does liberalism have a fear of the state?" }
+                  ]
+                },
+                {
+                  id: "p1_m2_t3",
+                  name: "3. Socialism",
+                  bullets: [
+                    "Core ideas: collectivism, common humanity, equality, social class, common ownership",
+                    "Strands: Revolutionary Socialism, Democratic Socialism, Social Democracy, Third Way",
+                    "Tensions over capitalism, state ownership, state role, and social transformation"
+                  ],
+                  thinkers: ["Karl Marx & Friedrich Engels", "Beatrice Webb", "Rosa Luxemburg", "Anthony Crosland", "Anthony Giddens"],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "To what extent does socialism agree over the role of the state?" },
+                    { year: "2025", type: "Essay", prompt: "To what extent is socialism united in its view of human nature?" },
+                    { year: "2023", type: "Essay", prompt: "To what extent does the Third Way effectively abandon socialist principles?" }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          paperId: "paper2",
+          title: "Paper 2: UK Government & Non-Core Ideologies",
+          modules: [
+            {
+              title: "UK Government",
+              topics: [
+                {
+                  id: "p2_m1_t1",
+                  name: "1. The Constitution",
+                  bullets: [
+                    "Nature and sources of the UK Constitution: uncodified, unentrenched, parliamentary sovereignty",
+                    "Constitutional reforms since 1997: devolutions, Human Rights Act, House of Lords Act, Supreme Court",
+                    "Devolution in Scotland, Wales, and Northern Ireland: powers and asymmetrical dynamics",
+                    "Debates on further reform: codification, electoral reform, House of Lords reform"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that devolution has been a success." },
+                    { year: "2025", type: "Source", prompt: "Using the source, evaluate the view that the UK’s constitution is not working effectively." },
+                    { year: "2024", type: "Essay", prompt: "Evaluate the view that sovereignty does not lie in Parliament alone." }
+                  ]
+                },
+                {
+                  id: "p2_m1_t2",
+                  name: "2. Parliament",
+                  bullets: [
+                    "Structure, powers, and role of House of Commons vs House of Lords",
+                    "Scrutiny mechanisms: Select Committees, PMQs, Debates, Backbench Business Committee",
+                    "Legislative process: bill stages, ping-pong, Parliament Acts (1949)",
+                    "Representativeness and reform proposals for Parliament"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that committees in the House of Commons are highly effective." },
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that backbenchers in the House of Commons are increasingly effective at carrying out their roles." },
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that select committees are the most effective way for Parliament to hold the government to account." }
+                  ]
+                },
+                {
+                  id: "p2_m1_t3",
+                  name: "3. Prime Minister and Executive",
+                  bullets: [
+                    "Structure and powers of the Executive: PM, Cabinet, ministers, civil service",
+                    "Cabinet government vs Presidentialised Prime Ministerial power",
+                    "Ministerial responsibility: Individual vs Collective Ministerial Responsibility",
+                    "PM patronage, media influence, and party control dynamics"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Source", prompt: "Using the source, evaluate the view that the Executive now dominates Parliament." },
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that Prime Ministers now have too much power." },
+                    { year: "2022.06", type: "Essay", prompt: "Evaluate the view that the concepts of individual ministerial responsibility are no longer relevant." }
+                  ]
+                },
+                {
+                  id: "p2_m1_t4",
+                  name: "4. Relations Between Branches",
+                  bullets: [
+                    "Supreme Court role, judicial independence, judicial neutrality, judicial review",
+                    "Human Rights protection, Declaration of Incompatibility, and civil liberties",
+                    "EU withdrawal impact on parliamentary sovereignty and statutory authority"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that the Supreme Court’s influence over the Executive and Parliament has grown too large." },
+                    { year: "2022.06", type: "Essay", prompt: "Evaluate the view that the Supreme Court operates with sufficient judicial independence." }
+                  ]
+                }
+              ]
+            },
+            {
+              title: "Non-Core Political Ideas",
+              topics: [
+                {
+                  id: "p2_m2_fem",
+                  optionKey: "feminism",
+                  name: "Non-Core: Feminism",
+                  bullets: [
+                    "Core ideas: sex vs gender, patriarchy, the personal is political, intersectionality",
+                    "Strands: Liberal Feminism, Radical Feminism, Socialist Feminism, Postmodern/Difference Feminism",
+                    "Tensions over state role, economic reform, family structure, and gender identity"
+                  ],
+                  thinkers: ["Charlotte Perkins Gilman", "Simone de Beauvoir", "Kate Millett", "Sheila Rowbotham", "bell hooks"],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "To what extent is feminism divided in its views on society?" },
+                    { year: "2026", type: "Essay", prompt: "To what extent is feminism united in its views on human nature?" },
+                    { year: "2025", type: "Essay", prompt: "To what extent is feminism united about sex and gender?" },
+                    { year: "2024", type: "Essay", prompt: "To what extent is feminism united about how society must be changed?" }
+                  ]
+                },
+                {
+                  id: "p2_m2_ana",
+                  optionKey: "anarchism",
+                  name: "Non-Core: Anarchism",
+                  bullets: [
+                    "Core ideas: rejection of state authority, liberty, anti-statism, anti-clericalism",
+                    "Strands: Individualist Anarchism vs Collectivist Anarchism",
+                    "Tensions over economics, social order, and revolutionary methods"
+                  ],
+                  thinkers: ["Max Stirner", "Pierre-Joseph Proudhon", "Mikhail Bakunin", "Peter Kropotkin", "Emma Goldman"],
+                  questions: []
+                },
+                {
+                  id: "p2_m2_eco",
+                  optionKey: "ecologism",
+                  name: "Non-Core: Ecologism",
+                  bullets: [
+                    "Core ideas: ecology, ecocentrism, sustainability, bio-ethic, post-materialism",
+                    "Strands: Shallow Ecology (Environmentalism) vs Deep Ecology, Ecofeminism, Eco-socialism",
+                    "Tensions over growth economics, state intervention, and anthropocentrism"
+                  ],
+                  thinkers: ["Aldo Leopold", "Rachel Carson", "E.F. Schumacher", "Carolyn Merchant", "James Lovelock"],
+                  questions: []
+                },
+                {
+                  id: "p2_m2_mul",
+                  optionKey: "multiculturalism",
+                  name: "Non-Core: Multiculturalism",
+                  bullets: [
+                    "Core ideas: culture and identity, minority rights, diversity, toleration",
+                    "Strands: Liberal Multiculturalism, Pluralist Multiculturalism, Cosmopolitan Multiculturalism",
+                    "Tensions over integration, universal citizenship, and group identity rights"
+                  ],
+                  thinkers: ["Isaiah Berlin", "Charles Taylor", "Bhikhu Parekh", "Tariq Modood", "Will Kymlicka"],
+                  questions: []
+                },
+                {
+                  id: "p2_m2_nat",
+                  optionKey: "nationalism",
+                  name: "Non-Core: Nationalism",
+                  bullets: [
+                    "Core ideas: the nation, self-determination, nation-state, organic community",
+                    "Strands: Liberal Nationalism, Conservative Nationalism, Expansionist Nationalism, Anti-colonial Nationalism",
+                    "Tensions over civic vs ethnic identity, internationalism, and sovereignty"
+                  ],
+                  thinkers: ["Jean-Jacques Rousseau", "Johann Gottfried von Herder", "Giuseppe Mazzini", "Charles Maurras", "Marcus Garvey"],
+                  questions: []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          paperId: "paper3a",
+          optionRoute: "3a",
+          title: "Paper 3A: US Politics (Comparative)",
+          modules: [
+            {
+              title: "US Government & Politics",
+              topics: [
+                {
+                  id: "p3a_t1",
+                  name: "1. The US Constitution and Federalism",
+                  bullets: [
+                    "Nature of US Constitution: codified, rigid, separation of powers, checks and balances",
+                    "Federalism: evolution from dual to cooperative to new federalism, states' rights debates",
+                    "Comparative: UK vs US constitution (uncodified vs codified, unitary vs federal)"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that federalism is in decline in the USA." },
+                    { year: "2025", type: "Comp Theory", prompt: "Analyse how the US and the UK constitutions differ." },
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that the checks and balances in the US Constitution are ineffective." }
+                  ]
+                },
+                {
+                  id: "p3a_t2",
+                  name: "2. US Congress",
+                  bullets: [
+                    "Structure & powers: Senate vs House of Representatives, co-equal legislative authority",
+                    "Functions: legislation, oversight, representation, confirmation of appointments",
+                    "Partisanship, gridlock, committee system, filibuster, and polarisation",
+                    "Comparative: US Congress vs UK Parliament (powers, discipline, representation)"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that increasing partisanship has made political parties more effective in Congress." },
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that Congress fails to adequately hold the President to account." },
+                    { year: "2023", type: "Essay", prompt: "Evaluate the view that Congress is unrepresentative." }
+                  ]
+                },
+                {
+                  id: "p3a_t3",
+                  name: "3. US Presidency",
+                  bullets: [
+                    "Formal vs informal sources of power: Commander-in-Chief, Executive Orders, Chief Diplomat",
+                    "Theories of presidential power: Imperial Presidency vs Imperilled Presidency",
+                    "Executive Office of the President (EXOP) and Cabinet dynamics",
+                    "Comparative: US President vs UK Prime Minister (executive authority and accountability)"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that the US presidency is imperial." },
+                    { year: "2026", type: "Examine", prompt: "Examine the similarities in how the US President and the UK Prime Minister are accountable to their legislatures." },
+                    { year: "2023", type: "Comp Theory", prompt: "Analyse how the role and powers of the US President and the UK Prime Minister differ." }
+                  ]
+                },
+                {
+                  id: "p3a_t4",
+                  name: "4. US Supreme Court and Civil Rights",
+                  bullets: [
+                    "Supreme Court composition, judicial appointments, judicial activism vs restraint",
+                    "Protection of constitutional rights: 1st, 2nd, 5th, 14th Amendments, landmark rulings",
+                    "Racial equality, voting rights, affirmative action, and civil rights movement progress",
+                    "Comparative: US Supreme Court vs UK Supreme Court (judicial review and rights enforcement)"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2025", type: "Essay", prompt: "Evaluate the view that civil and constitutional rights have been successfully upheld by the US Supreme Court." },
+                    { year: "2024", type: "Essay", prompt: "Evaluate the view that the US Supreme Court is a political body rather than a judicial body." },
+                    { year: "2022.12", type: "Essay", prompt: "Evaluate the view that measures to promote racial equality have failed." }
+                  ]
+                },
+                {
+                  id: "p3a_t5",
+                  name: "5. US Democracy and Participation",
+                  bullets: [
+                    "Elections: Presidential nomination process, Electoral College, Congressional elections",
+                    "Political parties: Democrats vs Republicans (ideology, coalition factions, realignment)",
+                    "Interest groups: methods, campaign finance (PACs & Super PACs), lobbying impact",
+                    "Comparative: US vs UK pressure/interest group influence and election financing"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Essay", prompt: "Evaluate the view that the process for electing presidents should be reformed." },
+                    { year: "2024", type: "Essay", prompt: "Evaluate the view that interest groups in the USA have a negative impact on democracy." },
+                    { year: "2022.06", type: "Essay", prompt: "Evaluate the view that interest groups are more effective than political parties in influencing policy." }
+                  ]
+                },
+                {
+                  id: "p3a_t6",
+                  name: "6. Comparative Approaches (UK vs US)",
+                  bullets: [
+                    "Structural approach: institutions, constitutions, rules, processes",
+                    "Rational approach: individual actor choices, self-interest, tactical behavior",
+                    "Cultural approach: shared history, national culture, traditions, group identity"
+                  ],
+                  thinkers: [],
+                  questions: [
+                    { year: "2026", type: "Comp Theory", prompt: "Analyse the differences between how civil rights are protected by interest groups in the USA and pressure groups in the UK." }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          paperId: "paper3b",
+          optionRoute: "3b",
+          title: "Paper 3B: Global Politics (Comparative)",
+          modules: [
+            {
+              title: "Global Politics",
+              topics: [
+                {
+                  id: "p3b_t1",
+                  name: "1. Sovereignty and Globalisation",
+                  bullets: ["State sovereignty, globalisation types (political, economic, cultural), state decline debates"],
+                  thinkers: [],
+                  questions: []
+                },
+                {
+                  id: "p3b_t2",
+                  name: "2. Global Governance: Political & Economic",
+                  bullets: ["UN, IMF, World Bank, WTO, G7/G20: roles, effectiveness, and reform debates"],
+                  thinkers: [],
+                  questions: []
+                },
+                {
+                  id: "p3b_t3",
+                  name: "3. Global Governance: Human Rights & Environmental",
+                  bullets: ["International courts, human rights protection, climate change agreements (UNFCCC, COP)"],
+                  thinkers: [],
+                  questions: []
+                },
+                {
+                  id: "p3b_t4",
+                  name: "4. Power and Developments",
+                  bullets: ["Realism vs Liberalism, polarities (unipolar, bipolar, multipolar), regionalism (EU)"],
+                  thinkers: [],
+                  questions: []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    let appState = {
+      p3Route: "3a",
+      nonCore: "feminism",
+      theme: "dark",
+      statuses: {},
+      questionStatuses: {}
+    };
+
+    function loadState() {
+      const saved = localStorage.getItem("politics_tracker_state");
+      if (saved) {
+        appState = { ...appState, ...JSON.parse(saved) };
+      }
+      document.body.classList.toggle("light-mode", appState.theme === "light");
+      document.getElementById("p3RouteSelect").value = appState.p3Route;
+      document.getElementById("nonCoreSelect").value = appState.nonCore;
+    }
+
+    function saveState() {
+      localStorage.setItem("politics_tracker_state", JSON.stringify(appState));
+      updateProgress();
+    }
+
+    function render() {
+      const container = document.getElementById("appContainer");
+      container.innerHTML = "";
+
+      SPEC_DATA.papers.forEach(paper => {
+        if (paper.optionRoute && paper.optionRoute !== appState.p3Route) return;
+
+        const paperEl = document.createElement("div");
+        paperEl.className = "paper-card";
+
+        let modulesHtml = "";
+        paper.modules.forEach(mod => {
+          let topicsHtml = "";
+          mod.topics.forEach(t => {
+            if (t.optionKey && t.optionKey !== appState.nonCore) return;
+
+            const currentStatus = appState.statuses[t.id] || 0;
+            
+            let bulletsHtml = t.bullets && t.bullets.length ? `<div class="section-subtitle">Specification Content</div><ul class="spec-list">` +
+              t.bullets.map(b => `<li>${b}</li>`).join("") + `</ul>` : "";
+
+            let thinkersHtml = t.thinkers && t.thinkers.length ? `<div class="section-subtitle">Key Thinkers</div>` + 
+              t.thinkers.map(tk => `<span class="thinker-tag">${tk}</span>`).join("") : "";
+
+            let questionsHtml = "";
+            if (t.questions && t.questions.length) {
+              questionsHtml = `<div class="section-subtitle">Past Exam Questions (${t.questions.length})</div>` +
+                t.questions.map((q, idx) => {
+                  const qKey = `${t.id}_q${idx}`;
+                  const qStat = appState.questionStatuses[qKey] || "unattempted";
+                  return `
+                    <div class="question-item">
+                      <div class="question-meta">
+                        <span><strong>${q.year}</strong> • ${q.type}</span>
+                        <select onchange="updateQuestionStatus('${qKey}', this.value)" style="font-size:0.75rem; padding:2px;">
+                          <option value="unattempted" ${qStat==='unattempted'?'selected':''}>Not Started</option>
+                          <option value="planned" ${qStat==='planned'?'selected':''}>Essay Planned</option>
+                          <option value="completed" ${qStat==='completed'?'selected':''}>Essay Written</option>
+                        </select>
+                      </div>
+                      <div>"${q.prompt}"</div>
+                    </div>`;
+                }).join("");
+            }
+
+            topicsHtml += `
+              <div class="topic-card">
+                <div class="topic-header">
+                  <span class="topic-name">${t.name}</span>
+                  <select class="status-select status-${currentStatus}" onchange="updateTopicStatus('${t.id}', this.value)">
+                    <option value="0" class="status-0" ${currentStatus==0?'selected':''}>🔴 Not Started</option>
+                    <option value="1" class="status-1" ${currentStatus==1?'selected':''}>🟠 Notes Done</option>
+                    <option value="2" class="status-2" ${currentStatus==2?'selected':''}>🟡 Terms/Thinkers Memorised</option>
+                    <option value="3" class="status-3" ${currentStatus==3?'selected':''}>🟢 Exam Ready</option>
+                  </select>
+                </div>
+                ${(bulletsHtml || thinkersHtml || questionsHtml) ? `
+                  <button class="drawer-toggle" onclick="toggleDrawer('${t.id}_drawer')">Spec & Questions (${(t.questions || []).length}) ▼</button>
+                  <div id="${t.id}_drawer" class="drawer-content">
+                    ${bulletsHtml}
+                    ${thinkersHtml}
+                    ${questionsHtml}
+                  </div>
+                ` : ''}
+              </div>`;
+          });
+
+          if (topicsHtml) {
+            modulesHtml += `<div style="margin-top:14px;"><strong style="color:var(--text-muted); font-size:0.9rem;">${mod.title}</strong>${topicsHtml}</div>`;
+          }
+        });
+
+        paperEl.innerHTML = `<div class="paper-title"><span>${paper.title}</span></div>${modulesHtml}`;
+        container.appendChild(paperEl);
+      });
+
+      updateProgress();
+    }
+
+    function toggleDrawer(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle("open");
+    }
+
+    function updateTopicStatus(id, val) {
+      appState.statuses[id] = parseInt(val, 10);
+      saveState();
+      render();
+    }
+
+    function updateQuestionStatus(qKey, val) {
+      appState.questionStatuses[qKey] = val;
+      saveState();
+    }
+
+    function updateProgress() {
+      let total = 0;
+      let score = 0;
+
+      SPEC_DATA.papers.forEach(p => {
+        if (p.optionRoute && p.optionRoute !== appState.p3Route) return;
+        p.modules.forEach(m => {
+          m.topics.forEach(t => {
+            if (t.optionKey && t.optionKey !== appState.nonCore) return;
+            total += 3;
+            score += (appState.statuses[t.id] || 0);
+          });
+        });
+      });
+
+      const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+      document.getElementById("overallPercentage").innerText = `${pct}%`;
+      document.getElementById("overallBar").style.width = `${pct}%`;
+    }
+
+    document.getElementById("p3RouteSelect").addEventListener("change", (e) => {
+      appState.p3Route = e.target.value;
+      saveState();
+      render();
+    });
+
+    document.getElementById("nonCoreSelect").addEventListener("change", (e) => {
+      appState.nonCore = e.target.value;
+      saveState();
+      render();
+    });
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      appState.theme = appState.theme === "light" ? "dark" : "light";
+      saveState();
+      document.body.classList.toggle("light-mode", appState.theme === "light");
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `politics_tracker_backup_${new Date().toISOString().slice(0,10)}.json`);
+      dlAnchor.click();
+    });
+
+    document.getElementById("importBtn").addEventListener("click", () => {
+      document.getElementById("importFile").click();
+    });
+
+    document.getElementById("importFile").addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          appState = JSON.parse(evt.target.result);
+          saveState();
+          loadState();
+          render();
+          alert("Progress successfully imported!");
+        } catch (err) {
+          alert("Invalid JSON file format.");
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW reg error:', err));
+      });
+    }
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>
