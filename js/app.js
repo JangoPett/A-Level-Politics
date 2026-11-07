@@ -5,8 +5,8 @@ const SPEC_DATA = {
       paperId: "paper1",
       title: "Paper 1: UK Politics and Core Political Ideas",
       modules: [
-        ...window.PAPER1_UK.modules,     // Spreads Module 1, 2, 3, and 4
-        ...window.PAPER1_CORE.modules    // Spreads Core Political Ideas Module
+        ...window.PAPER1_UK.modules,
+        ...window.PAPER1_CORE.modules
       ]
     },
     {
