@@ -1,33 +1,33 @@
-// --- COMBINE MODULAR SPECIFICATION DATA (VERSION 2.0) ---
+// --- 1. COMBINE MODULAR DATA SAFELY ---
 const SPEC_DATA = {
   papers: [
     {
       paperId: "paper1",
       title: "Paper 1: UK Politics and Core Political Ideas",
       modules: [
-        ...window.PAPER1_UK.modules,
-        ...window.PAPER1_CORE.modules
+        ...(window.PAPER1_UK?.modules || []),
+        ...(window.PAPER1_CORE?.modules || [])
       ]
     },
     {
       paperId: "paper2",
       title: "Paper 2: UK Government and Non-core Political Ideas",
       modules: [
-        ...window.PAPER2_UK.modules,
-        ...window.PAPER2_FEMINISM.modules
+        ...(window.PAPER2_UK?.modules || []),
+        ...(window.PAPER2_FEMINISM?.modules || [])
       ]
     },
     {
       paperId: "paper3",
       title: "Paper 3: Comparative Politics — US Politics",
       modules: [
-        ...window.PAPER3_US.modules
+        ...(window.PAPER3_US?.modules || [])
       ]
     }
   ]
 };
 
-// --- STATE MANAGEMENT ---
+// --- 2. STATE MANAGEMENT ---
 let appState = {
   theme: "dark",
   bulletStatuses: {},
@@ -37,7 +37,11 @@ let appState = {
 function loadState() {
   const saved = localStorage.getItem("politics_tracker_state_v2");
   if (saved) {
-    appState = { ...appState, ...JSON.parse(saved) };
+    try {
+      appState = { ...appState, ...JSON.parse(saved) };
+    } catch (e) {
+      console.error("Error loading saved state:", e);
+    }
   }
   document.body.classList.toggle("light-mode", appState.theme === "light");
 }
@@ -47,7 +51,7 @@ function saveState() {
   updateProgress();
 }
 
-// --- WEIGHTED AVERAGE ROLLUP ENGINE ---
+// --- 3. STATUS & BADGE CALCULATIONS ---
 function getSubsectionStatus(sub) {
   if (!sub.bullets || sub.bullets.length === 0) return 0;
   const scores = sub.bullets.map(b => appState.bulletStatuses[b.id] || 0);
@@ -79,9 +83,13 @@ function getStatusBadgeHtml(statusNum) {
   return `<span class="status-badge status-${statusNum}">${labels[statusNum]}</span>`;
 }
 
-// --- RENDER APPLICATION ---
+// --- 4. RENDER ENGINE ---
 function render() {
   const container = document.getElementById("appContainer");
+  if (!container) {
+    console.error("appContainer div not found in DOM!");
+    return;
+  }
   container.innerHTML = "";
 
   SPEC_DATA.papers.forEach(paper => {
@@ -99,11 +107,11 @@ function render() {
       const modStat = getModuleStatus(mod);
       let subHtml = "";
 
-      mod.subsections.forEach(sub => {
+      (mod.subsections || []).forEach(sub => {
         const subStat = getSubsectionStatus(sub);
 
         let bulletsHtml = `<div class="section-subtitle">Specification Bullet Points</div>`;
-        sub.bullets.forEach(b => {
+        (sub.bullets || []).forEach(b => {
           const bStat = appState.bulletStatuses[b.id] || 0;
           bulletsHtml += `
             <div class="bullet-item">
@@ -158,7 +166,7 @@ function render() {
 
       paperHtml += `
         <div class="module-block">
-          <div class="module-title">
+          <div class="module-header">
             <span>${mod.title}</span>
             <span id="badge_mod_${mod.id}">${getStatusBadgeHtml(modStat)}</span>
           </div>
@@ -233,8 +241,8 @@ function updateProgress() {
 
   SPEC_DATA.papers.forEach(p => {
     p.modules.forEach(m => {
-      m.subsections.forEach(s => {
-        s.bullets.forEach(b => {
+      (m.subsections || []).forEach(s => {
+        (s.bullets || []).forEach(b => {
           totalBullets += 3;
           score += (appState.bulletStatuses[b.id] || 0);
         });
@@ -243,52 +251,63 @@ function updateProgress() {
   });
 
   const pct = totalBullets > 0 ? Math.round((score / totalBullets) * 100) : 0;
-  document.getElementById("overallPercentage").innerText = `${pct}%`;
-  document.getElementById("overallBar").style.width = `${pct}%`;
+  const pctEl = document.getElementById("overallPercentage");
+  const barEl = document.getElementById("overallBar");
+  if (pctEl) pctEl.innerText = `${pct}%`;
+  if (barEl) barEl.style.width = `${pct}%`;
 }
 
-// --- EVENT LISTENERS ---
-document.getElementById("themeToggle").addEventListener("click", () => {
-  appState.theme = appState.theme === "light" ? "dark" : "light";
-  saveState();
-  document.body.classList.toggle("light-mode", appState.theme === "light");
-});
+// --- 5. INITIALIZATION & EVENT LISTENERS ---
+document.addEventListener("DOMContentLoaded", () => {
+  const themeBtn = document.getElementById("themeToggle");
+  const exportBtn = document.getElementById("exportBtn");
+  const importBtn = document.getElementById("importBtn");
+  const importFile = document.getElementById("importFile");
 
-document.getElementById("exportBtn").addEventListener("click", () => {
-  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
-  const dlAnchor = document.createElement('a');
-  dlAnchor.setAttribute("href", dataStr);
-  dlAnchor.setAttribute("download", `politics_tracker_backup_v2_${new Date().toISOString().slice(0,10)}.json`);
-  dlAnchor.click();
-});
-
-document.getElementById("importBtn").addEventListener("click", () => {
-  document.getElementById("importFile").click();
-});
-
-document.getElementById("importFile").addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = (evt) => {
-    try {
-      appState = JSON.parse(evt.target.result);
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      appState.theme = appState.theme === "light" ? "dark" : "light";
       saveState();
-      loadState();
-      render();
-      alert("Progress successfully imported into Version 2.0!");
-    } catch (err) {
-      alert("Invalid JSON file format.");
-    }
-  };
-  reader.readAsText(file);
+      document.body.classList.toggle("light-mode", appState.theme === "light");
+    });
+  }
+
+  if (exportBtn) {
+    exportBtn.addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", `politics_tracker_backup_v2_${new Date().toISOString().slice(0,10)}.json`);
+      dlAnchor.click();
+    });
+  }
+
+  if (importBtn) {
+    importBtn.addEventListener("click", () => {
+      if (importFile) importFile.click();
+    });
+  }
+
+  if (importFile) {
+    importFile.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          appState = JSON.parse(evt.target.result);
+          saveState();
+          loadState();
+          render();
+          alert("Progress successfully imported into Version 2.0!");
+        } catch (err) {
+          alert("Invalid JSON file format.");
+        }
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  loadState();
+  render();
 });
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW reg error:', err));
-  });
-}
-
-loadState();
-render();
