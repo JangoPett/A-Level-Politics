@@ -5,23 +5,23 @@ const SPEC_DATA = {
       paperId: "paper1",
       title: "Paper 1: UK Politics and Core Political Ideas",
       modules: [
-        window.PAPER1_UK,
-        window.PAPER1_CORE
+        ...window.PAPER1_UK.modules,     // Spreads Module 1, 2, 3, and 4
+        ...window.PAPER1_CORE.modules    // Spreads Core Political Ideas Module
       ]
     },
     {
       paperId: "paper2",
       title: "Paper 2: UK Government and Non-core Political Ideas",
       modules: [
-        window.PAPER2_UK,
-        window.PAPER2_FEMINISM
+        ...window.PAPER2_UK.modules,
+        ...window.PAPER2_FEMINISM.modules
       ]
     },
     {
       paperId: "paper3",
       title: "Paper 3: Comparative Politics — US Politics",
       modules: [
-        window.PAPER3_US
+        ...window.PAPER3_US.modules
       ]
     }
   ]
