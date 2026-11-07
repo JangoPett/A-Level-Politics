@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>A-Level Politics Topic & Question Tracker (Edexcel 9PL0) - v2.0</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e293b">
@@ -43,8 +46,21 @@
     
     .paper-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
     .paper-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--accent); display: flex; justify-content: space-between; align-items: center; }
-    .module-block { margin-top: 16px; border-top: 1px dashed var(--border); padding-top: 12px; }
-    .module-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    
+    .module-block { margin-top: 20px; }
+    .module-header {
+      background: var(--border);
+      color: var(--accent);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 4px solid var(--accent);
+    }
     
     .subsection-card { border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-top: 10px; background: rgba(0,0,0,0.05); }
     .subsection-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
@@ -107,14 +123,14 @@
     <p>A-Level Politics Specification Tracker — <strong>Version 2.0</strong></p>
   </footer>
 
-<!-- MUST LOAD DATA FILES FIRST -->
-<script src="js/paper1-uk.js"></script>
-<script src="js/paper1-core.js"></script>
-<script src="js/paper2-uk.js"></script>
-<script src="js/paper2-feminism.js"></script>
-<script src="js/paper3-us.js"></script>
+  <!-- 1. Load Data Modules First -->
+  <script src="js/paper1-uk.js"></script>
+  <script src="js/paper1-core.js"></script>
+  <script src="js/paper2-uk.js"></script>
+  <script src="js/paper2-feminism.js"></script>
+  <script src="js/paper3-us.js"></script>
 
-<!-- MUST LOAD APP ENGINE LAST -->
-<script src="js/app.js"></script>
+  <!-- 2. Load Main Application Engine Last -->
+  <script src="js/app.js"></script>
 </body>
 </html>
